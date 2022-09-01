@@ -22,4 +22,14 @@ describe('Gilded Rose', () => {
     const items = gildedRose.updateQuality();
     checkItem(items[0], 'foo', sellIn - 1, 0);
   })
+  it('Aged Brie should increase in quality', () => {
+    const gildedRose = new GildedRose([new Item('Aged Brie', 1, 0)]);
+    const items = gildedRose.updateQuality();
+    checkItem(items[0], 'Aged Brie', 0, 1);
+  })
+  it('Aged Brie *should* increase in quality at double the rate past its sellIn date???', () => {
+    const gildedRose = new GildedRose([new Item('Aged Brie', 0, 0)]);
+    const items = gildedRose.updateQuality();
+    checkItem(items[0], 'Aged Brie', -1, 2);
+  })
 });
