@@ -17,4 +17,9 @@ describe('Gilded Rose', () => {
     const items = gildedRose.updateQuality();
     checkItem(items[0], 'foo', -1, 0);
   })
+  it.each([["past sell by date", 0],["before sell by date", 1]])('should not degrade a normal item to negative quality, with sellIn value that is %s', (_string: string, sellIn: number) => {
+    const gildedRose = new GildedRose([new Item('foo', sellIn, 0)]);
+    const items = gildedRose.updateQuality();
+    checkItem(items[0], 'foo', sellIn - 1, 0);
+  })
 });
