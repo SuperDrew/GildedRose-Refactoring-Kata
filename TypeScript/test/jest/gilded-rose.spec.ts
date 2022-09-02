@@ -67,4 +67,34 @@ describe("Gilded Rose", () => {
       checkItem(items[0], "Sulfuras, Hand of Ragnaros", sellIn, 80);
     }
   );
+  describe("BackStage Passes", () => {
+    it.each([
+      [1, 11],
+      [2, 10],
+      [2, 6],
+      [3, 5],
+      [3, 1],
+    ])(
+      "Should increase in quality by %s when there are %s days are left",
+      (qualityIncrease: number, sellIn: number) => {
+        const gildedRose = new GildedRose([
+          new Item("Backstage passes to a TAFKAL80ETC concert", sellIn, 1),
+        ]);
+        const items = gildedRose.updateQuality();
+        checkItem(
+          items[0],
+          "Backstage passes to a TAFKAL80ETC concert",
+          sellIn - 1,
+          1 + qualityIncrease
+        );
+      }
+    );
+    it("should drop to zero quality after the concert", () => {
+      const gildedRose = new GildedRose([
+        new Item("Backstage passes to a TAFKAL80ETC concert", 0, 1),
+      ]);
+      const items = gildedRose.updateQuality();
+      checkItem(items[0], "Backstage passes to a TAFKAL80ETC concert", -1, 0);
+    });
+  });
 });
