@@ -47,7 +47,7 @@ describe("Gilded Rose", () => {
     ["past sell by date", 0],
     ["before sell by date", 1],
   ])(
-    "should never have a quality over 50, when %s",
+    "Aged Brie should never have a quality over 50, when %s",
     (_string: string, sellIn: number) => {
       const gildedRose = new GildedRose([new Item("Aged Brie", sellIn, 50)]);
       const items = gildedRose.updateQuality();
