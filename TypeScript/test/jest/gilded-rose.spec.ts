@@ -54,4 +54,17 @@ describe("Gilded Rose", () => {
       checkItem(items[0], "Aged Brie", sellIn - 1, 50);
     }
   );
+  it.each([
+    ["past sell by date", 0],
+    ["before sell by date", 1],
+  ])(
+    "Sulfuras being legendary should never change quality, when %s",
+    (_string: string, sellIn: number) => {
+      const gildedRose = new GildedRose([
+        new Item("Sulfuras, Hand of Ragnaros", sellIn, 80),
+      ]);
+      const items = gildedRose.updateQuality();
+      checkItem(items[0], "Sulfuras, Hand of Ragnaros", sellIn, 80);
+    }
+  );
 });
